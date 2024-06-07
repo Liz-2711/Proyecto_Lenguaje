@@ -11,8 +11,12 @@ int main() {
     cin >> input;
 
     lexer(input);
-    //parser();
-
+    vector<string> errors = parser();
+    if (errors.empty()) {
+        cout << "Gramatica correcta." << endl;
+    } else {
+        cout << "Hay errores." << endl;
+    }
     
     return 0;
 }

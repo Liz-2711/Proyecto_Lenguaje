@@ -14,7 +14,8 @@ enum TokenType {
     Constant,
     Operator,
     OpenParentesis,
-    CloseParentesis
+    CloseParentesis,
+    End
 };
 
 struct Token {

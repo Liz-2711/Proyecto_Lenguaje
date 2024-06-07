@@ -3,6 +3,6 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-bool parser();
+vector<string> parser();
 
 #endif

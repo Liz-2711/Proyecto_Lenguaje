@@ -38,7 +38,7 @@ Token getToken() {
         tokens.erase(tokens.begin());
         return currentToken;
     } else {
-        throw std::out_of_range("Tokens esta vacio.");
+        return token("", TokenType::End);
     }
 }
 
@@ -46,7 +46,7 @@ Token getNextToken() {
     if (tokens.size() > 1) {
         return tokens[1];
     } else {
-        throw std::out_of_range("Tokens esta vacio.");
+        return token("", TokenType::End);
     }
 }
 
@@ -79,13 +79,11 @@ vector<string> parse_input(string expression) {
     if (!currentToken.empty()) {
         tokens.push_back(currentToken);
     }
-    cout << "Finalizado" << endl;
     return tokens;
 }
 
 void tokenize(string expression) {
     vector<string> src = parse_input(expression);
-    cout << "Tokeniza" << endl;
 
     while (!src.empty()) {
         //cout << src.front() << endl;
@@ -93,11 +91,9 @@ void tokenize(string expression) {
             tokens.push_back(token(shift(src), TokenType::Operator));
         } 
         else if (src.front() == "(") {
-            cout << "Is open par" << endl;
             tokens.push_back(token(shift(src), TokenType::OpenParentesis));
         }
         else if (src.front() == ")") {
-            cout << "Is closed par" << endl;
             tokens.push_back(token(shift(src), TokenType::CloseParentesis));
         }
         else {
@@ -119,5 +115,4 @@ void tokenize(string expression) {
 
 void lexer(string expression) {
     tokenize(expression);
-    parser();
 }
