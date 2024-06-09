@@ -17,14 +17,20 @@ para su uso en cálculos.
 Verificación de Existencia de Variables: Comprueba si una 
 variable ha sido definida previamente.*/
 
-
+// Clase para gestionar variables y sus valores
 class Memoria {
 public:
+    // Asigna un valor a una variable
     void asignar(const std::string& variable, double valor);
+
+    // Obtiene el valor de una variable
     double obtener(const std::string& variable) const;
+
+    // Verifica si una variable está definida
     bool existe(const std::string& variable) const;
+
 private:
-    std::unordered_map<std::string, double> variables;
+    std::unordered_map<std::string, double> variables; // Almacena las variables y sus valores
 };
 
 #endif // MEMORIA_H

@@ -1,23 +1,56 @@
 #include "Evaluador.h"
+#include "EvaluadorPostFijas.h"
+#include "Conversor.h"
+#include "lexer.h"
+#include "parser.h"
+#include <iostream>
+#include <stack>
+#include <string>
+#include <unordered_map>
+#include <sstream>
 
 std::string Evaluador::evaluar(const std::string& expresion, Memoria& memoria, Configuracion& configuracion) {
     if (!validar(expresion)) {
         return "Expresión inválida";
     }
-    lexer(expresion);  // Tokeniza la expresión y llama al parser
-    // Aquí se debe evaluar la expresión postfija generada por el parser
-    // Dado que la implementación del parser aún no está completa, esto es un placeholder
-    double resultado = 0.0;  // Implementa la lógica de evaluación según tu parser
+    std::string expresionPostfija = infijaAPostfija(expresion); // Convertir expresión infija a postfija
+    double resultado = evaluarPostfija(expresionPostfija); // Evaluar expresión postfija
     std::ostringstream ss;
     ss << resultado;
     return ss.str();
 }
 
 bool Evaluador::validar(const std::string& expresion) {
-    // Implementar validaciones básicas de sintaxis
-    return true;  // Esto es un placeholder; implementa las validaciones necesarias
+    int countParenthesis = 0;
+    bool lastWasOperator = true; // Empieza como verdadero para detectar errores como: "*2" o "(+3)"
+    
+    for (char c : expresion) {
+        if (c == '(') {
+            countParenthesis++;
+            lastWasOperator = true; // Después de un paréntesis, se espera un número, variable o constante
+        } else if (c == ')') {
+            countParenthesis--;
+            if (lastWasOperator) {
+                return false; // Un paréntesis cerrado seguido de un operador es un error
+            }
+        } else if (isdigit(c) || isalpha(c)) {
+            lastWasOperator = false;
+        } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '%') {
+            if (lastWasOperator) {
+                return false; // Dos operadores consecutivos son un error
+            }
+            lastWasOperator = true;
+        } else if (!isspace(c)) {
+            return false; // Carácter no reconocido
+        }
+    }
+    
+    if (countParenthesis != 0 || lastWasOperator) {
+        return false; // Los paréntesis no están balanceados o la expresión termina con un operador
+    }
+    
+    return true; // Si no se encontraron errores, la expresión es válida
 }
-
 
 
 

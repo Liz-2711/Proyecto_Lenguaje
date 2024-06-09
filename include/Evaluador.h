@@ -2,20 +2,18 @@
 #define EVALUADOR_H
 
 #include <string>
-#include "Memoria.h"
-#include "Configuracion.h"
-#include "lexer.h"
-#include "parser.h"
+
+class Memoria;
+class Configuracion;
 
 class Evaluador {
 public:
     std::string evaluar(const std::string& expresion, Memoria& memoria, Configuracion& configuracion);
-private:
-    // Eliminar los métodos de conversión y evaluación anteriores
     bool validar(const std::string& expresion);
 };
 
 #endif // EVALUADOR_H
+
 
 
 

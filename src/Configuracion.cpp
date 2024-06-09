@@ -1,7 +1,9 @@
 #include "Configuracion.h"
+
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <iostream>
 
 Configuracion::Configuracion(const std::string& archivo) {
     cargarArchivo(archivo);
@@ -18,7 +20,7 @@ void Configuracion::cargarArchivo(const std::string& archivo) {
         std::istringstream ss(linea);
         std::string nombre;
         double valor;
-        if (ss >> nombre >> valor) {
+        if (std::getline(ss, nombre, '=') && ss >> valor) {
             constantes[nombre] = valor;
         }
     }

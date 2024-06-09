@@ -5,18 +5,18 @@
 
 TEST(EvaluadorTest, ExpresionValida) {
     Memoria memoria;
-    Configuracion configuracion;
+    Configuracion configuracion("config.txt");  // Asegúrate de tener un archivo de configuración válido
     Evaluador evaluador;
 
     std::string expresion = "3 + 5";
     std::string resultado = evaluador.evaluar(expresion, memoria, configuracion);
 
-    EXPECT_EQ(resultado, "8");
+    EXPECT_EQ(resultado, "8");  // Ajusta este valor según la lógica de tu evaluador
 }
 
 TEST(EvaluadorTest, ExpresionInvalida) {
     Memoria memoria;
-    Configuracion configuracion;
+    Configuracion configuracion("config.txt");  // Asegúrate de tener un archivo de configuración válido
     Evaluador evaluador;
 
     std::string expresion = "3 + ";
@@ -24,8 +24,6 @@ TEST(EvaluadorTest, ExpresionInvalida) {
 
     EXPECT_EQ(resultado, "Expresión inválida");
 }
-
-// Agrega más pruebas según sea necesario
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
