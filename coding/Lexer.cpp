@@ -16,12 +16,20 @@ string shift(vector<string>& src) {
 	return current;
 }
 
-bool isNumber(const string& str) {
-	for (char c : str) {
-		if (!isdigit(c))
-			return false;
-	}
-	return true;
+bool isNumber(const std::string& str) {
+    bool hasDecimalPoint = false;
+    for (char c : str) {
+        if (!std::isdigit(c) && c != '.') {
+            return false;
+        }
+        if (c == '.') {
+            if (hasDecimalPoint) {
+                return false;
+            }
+            hasDecimalPoint = true;
+        }
+    }
+    return true;
 }
 
 bool isAlpha(const std::string& str)
@@ -53,25 +61,49 @@ Token getNextToken() {
     }
 }
 
-vector<string> parse_input(string expression) {
-    vector<string> tokens;
-    string exp;
-    string currentToken;
-    string operators = "+-*/%()";
+std::vector<std::string> parse_input(const std::string& expression) {
+    std::vector<std::string> tokens;
+    std::string currentToken;
+    std::string operators = "+-*/%()^";
+    bool inNumber = false;
+    bool inDecimal = false;
+
     for (size_t i = 0; i < expression.size(); ++i) {
         char c = expression[i];
         
         if (std::isspace(c)) {
             continue;
         }
+
         if (std::isalpha(c)) {
+            if (inNumber) {
+                tokens.push_back(currentToken);
+                currentToken.clear();
+                inNumber = false;
+                inDecimal = false;
+            }
             currentToken += c;
-        } else if (std::isdigit(c) || c == '.') {
+        } else if (std::isdigit(c)) {
             currentToken += c;
+            inNumber = true;
+        } else if (c == '.') {
+            if (inDecimal) {
+                std::cerr << "Error: Numero invalido: " << currentToken + c << std::endl;
+                tokens.clear();
+                return tokens;
+            }
+            if (!inNumber) {
+                currentToken += '0';
+            }
+            currentToken += c;
+            inNumber = true;
+            inDecimal = true;
         } else if (operators.find(c) != std::string::npos) {
             if (!currentToken.empty()) {
                 tokens.push_back(currentToken);
                 currentToken.clear();
+                inNumber = false;
+                inDecimal = false;
             }
             tokens.push_back(std::string(1, c));
         } else {
@@ -84,15 +116,19 @@ vector<string> parse_input(string expression) {
     if (!currentToken.empty()) {
         tokens.push_back(currentToken);
     }
+
     return tokens;
 }
 
 string tokenize(string expression, Configuracion configuracion) {
     vector<string> src = parse_input(expression);
+    for (std::string s : src) {
+        cout << s << endl;
+    }
     string error = "";
     while (!src.empty()) {
         //cout << src.front() << endl;
-        if (src.front() == "+" || src.front() == "-" || src.front() == "*" || src.front() == "/" || src.front() == "%") {
+        if (src.front() == "+" || src.front() == "-" || src.front() == "*" || src.front() == "/" || src.front() == "%" || src.front() == "^") {
             tokens.push_back(token(shift(src), TokenType::Operator));
         } 
         else if (src.front() == "(") {
@@ -108,7 +144,7 @@ string tokenize(string expression, Configuracion configuracion) {
 				{
 					number += shift(src);
 				}
-
+                cout << "Es" << number << endl;
 				tokens.push_back(token(number, TokenType::Number));
             } else if (isAlpha(src.front())) {
                 string ident = shift(src);
