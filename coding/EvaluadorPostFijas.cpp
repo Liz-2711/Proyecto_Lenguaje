@@ -1,6 +1,7 @@
 #include "./headers/EvaluadorPostFijas.h"
 #include <stack>
 #include <string>
+#include <cmath>
 #include <iostream>
 
 double evaluarPostfija(std::stack<Token> tokens) {
@@ -34,7 +35,12 @@ double evaluarPostfija(std::stack<Token> tokens) {
                 pila.push(operando1 * operando2);
             } else if (token.value == "/") {
                 pila.push(operando1 / operando2);
+            } else if (token.value == "^") {
+                pila.push(std::pow(operando1, operando2));
+            } else if (token.value == "%") {
+                pila.push(std::fmod(operando1, operando2));
             }
+
         }
     }
 

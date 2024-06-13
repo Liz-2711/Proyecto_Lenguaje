@@ -3,7 +3,9 @@
 #include "./headers/configuracion.h"
 
 vector<Token> tokens;
-vector<Token> tokensTemp; 
+vector<Token> tokensTemp;
+bool invalidCharacter = false;
+string character = "";
 
 Token token(string value, TokenType type) {
     return { value, type };
@@ -108,7 +110,9 @@ std::vector<std::string> parse_input(const std::string& expression) {
             tokens.push_back(std::string(1, c));
         } else {
             std::cerr << "Caracter Inesperado: " << c << std::endl;
-            tokens.clear();
+            //tokens.clear();
+            character = c;
+            invalidCharacter = true;
             return tokens;
         }
     }
@@ -122,6 +126,10 @@ std::vector<std::string> parse_input(const std::string& expression) {
 
 string tokenize(string expression, Configuracion configuracion) {
     vector<string> src = parse_input(expression);
+    if (invalidCharacter) {
+        invalidCharacter = false;
+        return "Caracter Inesperado: " + character;
+    }
     for (std::string s : src) {
         cout << s << endl;
     }

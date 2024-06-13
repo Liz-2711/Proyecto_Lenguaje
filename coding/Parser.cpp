@@ -43,7 +43,16 @@ void factor() {
 void term() {
     factor();
     while (currentToken.type == Operator) {
-        match(Operator);
+        if (currentToken.value == "/") {
+            match(Operator);
+            if (currentToken.type == Number && currentToken.value == "0") {
+                error = "Error de Sintaxis: Division por cero.";
+                cout << "Error de Sintaxis: Division por cero." << endl;
+                return;
+            }
+        } else {
+            match(Operator);
+        }
         factor();
     }
 }
@@ -74,12 +83,6 @@ void expression_list() {
 
 string parser() {
     error.clear();
-    try {
-        expression_list();
-        return error;
-    } catch (const std::exception &e) {
-        tokens.clear();
-        error = "Error durante el analisis.";
-        return error;
-    }
+    expression_list();
+    return error;
 }
