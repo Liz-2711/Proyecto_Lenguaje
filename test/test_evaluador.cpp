@@ -1,31 +1,20 @@
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 #include "Evaluador.h"
 #include "Memoria.h"
 #include "Configuracion.h"
 
-TEST(EvaluadorTest, ExpresionValida) {
+TEST(EvaluadorTest, EvaluarExpresionValida) {
     Memoria memoria;
-    Configuracion configuracion("config.txt");  // Asegúrate de tener un archivo de configuración válido
+    Configuracion configuracion("config.txt");
     Evaluador evaluador;
-
-    std::string expresion = "3 + 5";
-    std::string resultado = evaluador.evaluar(expresion, memoria, configuracion);
-
-    EXPECT_EQ(resultado, "8");  // Ajusta este valor según la lógica de tu evaluador
+    std::string resultado = evaluador.evaluar("3 + 5", memoria, configuracion);
+    EXPECT_EQ(resultado, "8");
 }
 
-TEST(EvaluadorTest, ExpresionInvalida) {
+TEST(EvaluadorTest, EvaluarExpresionInvalida) {
     Memoria memoria;
-    Configuracion configuracion("config.txt");  // Asegúrate de tener un archivo de configuración válido
+    Configuracion configuracion("config.txt");
     Evaluador evaluador;
-
-    std::string expresion = "3 + ";
-    std::string resultado = evaluador.evaluar(expresion, memoria, configuracion);
-
+    std::string resultado = evaluador.evaluar("3 +", memoria, configuracion);
     EXPECT_EQ(resultado, "Expresión inválida");
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
