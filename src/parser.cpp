@@ -1,11 +1,9 @@
-#include "lexer.h"
 #include "parser.h"
 #include <iostream>
-#include <vector>
-using namespace std;
 
 Token currentToken;
 Token nextToken;
+std::vector<std::string> errors;
 
 // Inicio: OpenParenthesis, Number, Variable, Constant
 // OpenParenthesis -> Number, Variable, Contant
@@ -13,9 +11,9 @@ Token nextToken;
 // ClosedParenthesis -> Operator
 // Operator -> OpenParenthesis, Number, Variable, Constant
 
-vector<string> errors;
+//vector<string> errors;
 
-Token getToken(const vector<Token>& tokens, size_t& index) {
+Token getToken(const std::vector<Token>& tokens, size_t& index) {
     if (index < tokens.size()) {
         return tokens[index++];
     } else {
@@ -23,7 +21,7 @@ Token getToken(const vector<Token>& tokens, size_t& index) {
     }
 }
 
-void expression(const vector<Token>& tokens, size_t& index) {
+void expression(const std::vector<Token>& tokens, size_t& index) {
     if (currentToken.type == TokenType::Number || currentToken.type == TokenType::Variable || currentToken.type == TokenType::Constant) {
         currentToken = getToken(tokens, index);
         if (currentToken.type == TokenType::Operator) {
@@ -35,7 +33,7 @@ void expression(const vector<Token>& tokens, size_t& index) {
             return;
         } else {
             errors.push_back("Token invalido " + currentToken.value);
-            cout << "Error de Sintaxis: Token inválido " << currentToken.value << endl;
+            std::cout << "Error de Sintaxis: Token inválido " << currentToken.value << std::endl;
         }
     } else if (currentToken.type == TokenType::OpenParenthesis) {
         currentToken = getToken(tokens, index);
@@ -49,16 +47,16 @@ void expression(const vector<Token>& tokens, size_t& index) {
                 return;
             } else {
                 errors.push_back("Token invalido " + currentToken.value);
-                cout << "Error de Sintaxis: Token inválido " << currentToken.value << endl;
+                std::cout << "Error de Sintaxis: Token inválido " << currentToken.value << std::endl;
             }
         } else {
             errors.push_back("Token invalido " + currentToken.value);
-            cout << "Error de Sintaxis: Token inválido " << currentToken.value << endl;
+            std::cout << "Error de Sintaxis: Token inválido " << currentToken.value << std::endl;
         }
     }
 }
 
-void expression_list(const vector<Token>& tokens) {
+void expression_list(const std::vector<Token>& tokens) {
     size_t index = 0;
     currentToken = getToken(tokens, index);
     while (currentToken.type != TokenType::End) {

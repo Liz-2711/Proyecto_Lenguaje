@@ -1,0 +1,15 @@
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/CMakeFiles/main.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/CMakeFiles/runTests.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/CMakeFiles/INSTALL.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/CMakeFiles/INSTALL.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/CMakeFiles/ALL_BUILD.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googlemock/CMakeFiles/gmock.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googlemock/CMakeFiles/gmock_main.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googlemock/CMakeFiles/INSTALL.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googlemock/CMakeFiles/ALL_BUILD.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googletest/CMakeFiles/gtest.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googletest/CMakeFiles/gtest_main.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googletest/CMakeFiles/INSTALL.dir
+C:/Users/lizjr/OneDrive/Documents/GitHub/Proyecto_Lenguaje/build/lib/googletest/googletest/CMakeFiles/ALL_BUILD.dir
